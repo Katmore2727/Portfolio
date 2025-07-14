@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Modern Portfolio Website
 
 A beautiful, responsive portfolio website built with React.js and Tailwind CSS. Features a modern design with smooth animations, interactive components, and a professional layout.
@@ -155,3 +156,6 @@ If you have any questions or need help customizing the portfolio, please open an
 ---
 
 **Happy Coding! 🎉**
+=======
+# Portfolio
+>>>>>>> 2186a3e0f97d1dc99c8d535a4c3bb0d3c74a14ec
