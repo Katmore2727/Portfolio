@@ -228,7 +228,7 @@ const Projects = () => {
                   >
                     Live Demo
                   </button>
-                  <button
+                  {/* <button
                     onClick={(e) => {
                       e.stopPropagation();
                       // For now, show a message that GitHub repo will be available soon
@@ -237,7 +237,7 @@ const Projects = () => {
                     className="flex-1 border border-gray-300 text-gray-600 hover:border-blue-600 hover:text-blue-600 text-center py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300"
                   >
                     Code
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
