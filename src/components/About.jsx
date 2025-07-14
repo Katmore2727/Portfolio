@@ -21,7 +21,6 @@ const About = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Image and Stats */}
           <div className="space-y-8">
             {/* Profile Image */}
             <div className="relative">
