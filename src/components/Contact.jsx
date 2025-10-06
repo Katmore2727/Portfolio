@@ -1,6 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  const form = useRef();
+  
+  useEffect(() => {
+    emailjs.init("o8eBo0nDzcDHJrEb1"); // Replace with your actual public key
+  }, []);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,15 +27,37 @@ const Contact = () => {
     e.preventDefault()
     setIsSubmitting(true)
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setSubmitStatus('success')
-      setFormData({ name: '', email: '', subject: '', message: '' })
-      
-      // Reset status after 3 seconds
+    try {
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_name: "Yash Katmore",
+        reply_to: formData.email
+      };
+
+      const result = await emailjs.send(
+        'service_i0yvczl', // Replace with your Service ID from EmailJS
+        'template_c91ycjo', // Replace with your Template ID from EmailJS
+        templateParams
+      );
+
+      if (result.text === 'OK') {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', subject: '', message: '' })
+        setTimeout(() => setSubmitStatus(null), 3000)
+      } else {
+        setSubmitStatus('error')
+        setTimeout(() => setSubmitStatus(null), 3000)
+      }
+    } catch (error) {
+      console.error('Failed to send email:', error)
+      setSubmitStatus('error')
       setTimeout(() => setSubmitStatus(null), 3000)
-    }, 1500)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const contactInfo = [
@@ -173,7 +201,7 @@ const Contact = () => {
           <div className="bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl p-8 shadow-sm">
             <h3 className="text-2xl font-bold text-gray-800 mb-6">Send me a message</h3>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form ref={form} onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
@@ -251,6 +279,11 @@ const Contact = () => {
               {submitStatus === 'success' && (
                 <div className="text-green-400 text-center py-2">
                   Message sent successfully! I'll get back to you soon.
+                </div>
+              )}
+              {submitStatus === 'error' && (
+                <div className="text-red-400 text-center py-2">
+                  Failed to send message. Please try again later.
                 </div>
               )}
             </form>
