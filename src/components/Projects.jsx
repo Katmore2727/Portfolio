@@ -3,8 +3,8 @@ import WeatherDashboardDemo from './demos/WeatherDashboardDemo'
 import EcommerceDemo from './demos/EcommerceDemo'
 import TaskManagementDemo from './demos/TaskManagementDemo'
 import BlogDemo from './demos/BlogDemo'
-import PortfolioDemo from './demos/PortfolioDemo'
 import ApiGatewayDemo from './demos/ApiGatewayDemo'
+import TicTacToeDemo from './demos/TicTacToeDemo'
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState('all')
@@ -68,16 +68,16 @@ const Projects = () => {
     },
     {
       id: 5,
-      title: "Portfolio Website",
-      description: "A responsive portfolio website built with React.js and Tailwind CSS, featuring smooth animations and modern design.",
-      longDescription: "A modern, responsive portfolio website showcasing professional work and skills. Features include smooth animations, interactive sections, contact forms, and a beautiful design that adapts to all screen sizes. Built with React.js and Tailwind CSS.",
+      title: "Tic-Tac-Toe",
+      description: "A classic Tic-Tac-Toe game built using JavaScript, HTML, and CSS. Play against a friend in a simple, interactive UI.",
+      longDescription: "This Tic-Tac-Toe game features a clean and responsive design, allowing two players to compete in turns. The game logic is implemented in JavaScript, with a user-friendly interface created using HTML and styled with CSS. It includes win detection, draw handling, and a reset option for replaying.",
       image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=500&h=300&fit=crop",
-      technologies: ["React.js", "Tailwind CSS", "Figma", "Git/GitHub"],
+      technologies: ["JavaScript", "HTML", "CSS"],
       category: "frontend",
       liveUrl: "#",
       githubUrl: "#",
-      features: ["Responsive Design", "Smooth Animations", "Interactive Sections", "Contact Forms", "Modern UI"],
-      demoContent: "portfolio"
+      features: ["Two Player Mode", "Win Detection", "Draw Handling", "Responsive Design", "Reset Option"],
+      demoContent: "tic-tac-toe"
     },
     {
       id: 6,
@@ -127,10 +127,10 @@ const Projects = () => {
         return <TaskManagementDemo />
       case 'blog':
         return <BlogDemo />
-      case 'portfolio':
-        return <PortfolioDemo />
       case 'api-gateway':
         return <ApiGatewayDemo />
+      case 'tic-tac-toe':
+        return <TicTacToeDemo />
       default:
         return <div className="text-center text-gray-500">Demo not available</div>
     }

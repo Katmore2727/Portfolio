@@ -3,7 +3,7 @@ import userImg from '../assets/YashIMG.jpg'
 
 const About = () => {
   const stats = [
-    { number: '0.5+', label: 'Years Experience' },
+    { number: '1+', label: 'Years Experience' },
     { number: '10+', label: 'Projects Completed' },
     { number: '2+', label: 'Happy Clients' },
     { number: '100%', label: 'Client Satisfaction' }
