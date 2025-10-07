@@ -156,7 +156,7 @@ const Projects = () => {
             <button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
-              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
+              className={`px-6 py-3 cursor-pointer rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
                 activeFilter === filter.id
                   ? 'bg-blue-600 text-white shadow-lg'
                   : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
@@ -224,7 +224,7 @@ const Projects = () => {
                       e.stopPropagation();
                       handleProjectClick(project);
                     }}
-                    className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-center py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105"
+                    className="flex-1 cursor-pointer bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-center py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105"
                   >
                     Live Demo
                   </button>
