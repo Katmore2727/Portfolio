@@ -69,10 +69,10 @@ const Projects = () => {
     {
       id: 5,
       title: "Tic-Tac-Toe",
-      description: "A classic Tic-Tac-Toe game built using JavaScript, HTML, and CSS. Play against a friend in a simple, interactive UI.",
+      description: "A classic Tic-Tac-Toe game built using JavaScript, React.JS, HTML, and CSS. Play against a friend in a simple, interactive UI.",
       longDescription: "This Tic-Tac-Toe game features a clean and responsive design, allowing two players to compete in turns. The game logic is implemented in JavaScript, with a user-friendly interface created using HTML and styled with CSS. It includes win detection, draw handling, and a reset option for replaying.",
       image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=500&h=300&fit=crop",
-      technologies: ["JavaScript", "HTML", "CSS"],
+      technologies: ["JavaScript", "React.JS", "HTML", "CSS"],
       category: "frontend",
       liveUrl: "#",
       githubUrl: "#",

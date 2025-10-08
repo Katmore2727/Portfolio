@@ -1,5 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types';
+
+// Game modes
+const GAME_MODES = {
+  SELECT: 'select',
+  VS_PLAYER: 'vsPlayer',
+  VS_COMPUTER: 'vsComputer'
+};
 
 // Square component
 function Square(props) {
@@ -28,17 +35,75 @@ class Board extends Component {
     };
   }
 
+  // Computer move using minimax algorithm
+  computerMove() {
+    const squares = this.state.squares.slice();
+    const availableMoves = squares.map((square, index) => square === null ? index : null).filter(move => move !== null);
+    
+    if (availableMoves.length === 0) return;
+
+    // Try to win first
+    for (let move of availableMoves) {
+      const squaresCopy = squares.slice();
+      squaresCopy[move] = 'O';
+      if (calculateWinner(squaresCopy) === 'O') {
+        this.makeMove(move);
+        return;
+      }
+    }
+
+    // Block player's winning move
+    for (let move of availableMoves) {
+      const squaresCopy = squares.slice();
+      squaresCopy[move] = 'X';
+      if (calculateWinner(squaresCopy) === 'X') {
+        this.makeMove(move);
+        return;
+      }
+    }
+
+    // Take center if available
+    if (squares[4] === null) {
+      this.makeMove(4);
+      return;
+    }
+
+    // Take a random corner or side
+    const corners = [0, 2, 6, 8].filter(corner => squares[corner] === null);
+    if (corners.length > 0) {
+      this.makeMove(corners[Math.floor(Math.random() * corners.length)]);
+      return;
+    }
+
+    // Take any available move
+    this.makeMove(availableMoves[Math.floor(Math.random() * availableMoves.length)]);
+  }
+
+  makeMove(i) {
+    const squares = this.state.squares.slice();
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({
+      squares: squares,
+      xIsNext: !this.state.xIsNext,
+    });
+  }
+
   handleClick(i) {
     const squares = this.state.squares.slice();
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
 
-    this.setState({
-      squares: squares,
-      xIsNext: !this.state.xIsNext,
-    });
+    this.makeMove(i);
+
+    // If playing against computer and game isn't over, make computer move
+    if (
+      this.props.gameMode === GAME_MODES.VS_COMPUTER &&
+      !calculateWinner(this.state.squares) &&
+      this.state.squares.some(square => square === null)
+    ) {
+      setTimeout(() => this.computerMove(), 500);
+    }
   }
 
   renderSquare(i) {
@@ -103,17 +168,55 @@ function calculateWinner(squares) {
 
 // Main TicTacToe Demo component
 const TicTacToeDemo = () => {
+  const [gameMode, setGameMode] = useState(GAME_MODES.SELECT);
+  const [key, setKey] = useState(0); // Used to reset the game
+
+  const resetGame = (mode) => {
+    setGameMode(mode);
+    setKey(prevKey => prevKey + 1);
+  };
+
   return (
     <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
       <div className="text-center mb-6">
         <h3 className="text-2xl font-bold text-gray-800 mb-2">Tic-Tac-Toe Game</h3>
-        <p className="text-gray-600">Classic two-player game built with React</p>
-      </div>
-      <div className="flex justify-center">
-        <div className="bg-white p-6 rounded-xl shadow-md">
-          <Board />
+        <p className="text-gray-600 mb-4">Choose your game mode</p>
+        
+        <div className="flex justify-center space-x-4 mb-6">
+          <button
+            onClick={() => resetGame(GAME_MODES.VS_PLAYER)}
+            className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-md
+              ${gameMode === GAME_MODES.VS_PLAYER 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-white text-blue-600 hover:bg-blue-50'}`}
+          >
+            Play vs Player
+          </button>
+          <button
+            onClick={() => resetGame(GAME_MODES.VS_COMPUTER)}
+            className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-md
+              ${gameMode === GAME_MODES.VS_COMPUTER 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-white text-blue-600 hover:bg-blue-50'}`}
+          >
+            Play vs Computer
+          </button>
         </div>
       </div>
+      
+      {gameMode !== GAME_MODES.SELECT && (
+        <div className="flex justify-center">
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <Board key={key} gameMode={gameMode} />
+          </div>
+        </div>
+      )}
+
+      {gameMode === GAME_MODES.SELECT && (
+        <div className="text-center text-gray-600">
+          Select a game mode to start playing!
+        </div>
+      )}
     </div>
   );
 };
