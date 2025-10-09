@@ -79,13 +79,13 @@ class Board extends Component {
     this.makeMove(availableMoves[Math.floor(Math.random() * availableMoves.length)]);
   }
 
-  makeMove(i) {
+  makeMove(i, callback = null) {
     const squares = this.state.squares.slice();
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       squares: squares,
       xIsNext: !this.state.xIsNext,
-    });
+    }, callback);
   }
 
   handleClick(i) {
@@ -94,16 +94,17 @@ class Board extends Component {
       return;
     }
 
-    this.makeMove(i);
-
-    // If playing against computer and game isn't over, make computer move
-    if (
-      this.props.gameMode === GAME_MODES.VS_COMPUTER &&
-      !calculateWinner(this.state.squares) &&
-      this.state.squares.some(square => square === null)
-    ) {
-      setTimeout(() => this.computerMove(), 500);
-    }
+    // Make player's move and then check game state
+    this.makeMove(i, () => {
+      const currentSquares = this.state.squares;
+      const winner = calculateWinner(currentSquares);
+      const isBoardFull = !currentSquares.includes(null);
+      
+      // Only make computer move if game isn't over
+      if (!winner && !isBoardFull && this.props.gameMode === GAME_MODES.VS_COMPUTER) {
+        setTimeout(() => this.computerMove(), 500);
+      }
+    });
   }
 
   renderSquare(i) {
