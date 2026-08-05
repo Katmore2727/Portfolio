@@ -9,8 +9,8 @@ import { fileURLToPath } from 'url'
 
 dotenv.config()
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const currentFilename = fileURLToPath(import.meta.url)
+const currentDirname = path.dirname(currentFilename)
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -185,13 +185,13 @@ app.post('/api/contact', async (req, res) => {
 })
 
 const runningStandalone =
-  process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+  process.argv[1] && path.resolve(process.argv[1]) === currentFilename
 
 if (runningStandalone) {
-  app.use(express.static(path.join(__dirname, 'dist')))
+  app.use(express.static(path.join(currentDirname, 'dist')))
 
   app.get(/.*/, (_req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+    res.sendFile(path.join(currentDirname, 'dist', 'index.html'))
   })
 
   app.listen(PORT, () => {
