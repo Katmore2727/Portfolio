@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Skills = () => {
   const skillCategories = [
@@ -82,13 +82,13 @@ const Skills = () => {
         {/* Additional Skills */}
         <div className="mt-16">
           <h3 className="text-2xl font-bold text-gray-800 text-center mb-8">
-            Other Skills & Technologies
+            Additional Tools & Practices
           </h3>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {[
-              "Redux", "Sass", "Bootstrap", "Material-UI",
-              "Socket.io", "Performance", "Accessibility"
+              'Redux', 'Cypress', 'TypeScript', 'Figma',
+              'Testing', 'Performance', 'Accessibility', 'Responsive Design'
             ].map((skill, index) => (
               <div 
                 key={index}
@@ -103,14 +103,13 @@ const Skills = () => {
         {/* Learning Section */}
         <div className="mt-16 text-center">
           <h3 className="text-2xl font-bold text-gray-800 mb-4">
-            Currently Learning
+            Actively Growing
           </h3>
           <div className="flex flex-wrap justify-center gap-4">
             {[
-              // { name: "Rust", icon: "🦀" },
-              // { name: "WebAssembly", icon: "⚡" },
-              { name: "Machine Learning", icon: "🤖" },
-              { name: "Blockchain", icon: "⛓️" }
+              { name: 'TypeScript', icon: '🟦' },
+              { name: 'Testing Automation', icon: '🧪' },
+              { name: 'Design Systems', icon: '🎨' }
             ].map((tech, index) => (
               <div 
                 key={index}

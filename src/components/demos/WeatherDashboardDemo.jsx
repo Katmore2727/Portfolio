@@ -40,8 +40,9 @@ const WeatherDashboardDemo = () => {
     setForecast([])
     setIsDemo(false)
     try {
-      // Try real API first
-      const API_KEY = 'YOUR_API_KEY' // <-- Replace with your OpenWeatherMap API key
+      // Try real API first if configured
+      const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY
+      if (!API_KEY) throw new Error('OpenWeather API key not available')
       const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`)
       if (!response.ok) throw new Error('City not found')
       const data = await response.json()
@@ -56,7 +57,7 @@ const WeatherDashboardDemo = () => {
           setForecast([])
         }
       }
-    } catch (err) {
+    } catch {
       // Fallback to demo data
       setIsDemo(true)
       setWeatherData({ ...DEMO_WEATHER, name: city.trim() })

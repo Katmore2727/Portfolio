@@ -1,17 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react'
-import emailjs from '@emailjs/browser';
+import React, { useState, useRef } from 'react'
 
 const Contact = () => {
-  const form = useRef();
-  
-  useEffect(() => {
-    emailjs.init("o8eBo0nDzcDHJrEb1"); // Replace with your actual public key
-  }, []);
+  const form = useRef(null)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
+    website: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
@@ -23,38 +19,86 @@ const Contact = () => {
     })
   }
 
+  const validateForm = () => {
+    const trimmedName = formData.name.trim()
+    const trimmedSubject = formData.subject.trim()
+    const trimmedMessage = formData.message.trim()
+
+    if (formData.website) {
+      return { valid: false, message: 'Your message was blocked as spam.' }
+    }
+
+    if (trimmedName.length < 2) {
+      return { valid: false, message: 'Please enter your name.' }
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) {
+      return { valid: false, message: 'Please enter a valid email address.' }
+    }
+
+    if (trimmedSubject.length < 3) {
+      return { valid: false, message: 'Please enter a subject.' }
+    }
+
+    if (trimmedMessage.length < 20) {
+      return { valid: false, message: 'Please share a bit more detail so I can respond effectively.' }
+    }
+
+    return { valid: true }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    const validation = validateForm()
+    if (!validation.valid) {
+      setSubmitStatus({ type: 'error', message: validation.message })
+      return
+    }
+
+    if (isSubmitting) {
+      return
+    }
+
     setIsSubmitting(true)
-    
+    setSubmitStatus(null)
+
     try {
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
-        to_name: "Yash Katmore",
-        reply_to: formData.email
-      };
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          subject: formData.subject.trim(),
+          message: formData.message.trim(),
+          website: formData.website.trim()
+        })
+      })
 
-      const result = await emailjs.send(
-        'service_i0yvczl', // Replace with your Service ID from EmailJS
-        'template_c91ycjo', // Replace with your Template ID from EmailJS
-        templateParams
-      );
+      const data = await response.json().catch(() => ({}))
 
-      if (result.text === 'OK') {
-        setSubmitStatus('success')
-        setFormData({ name: '', email: '', subject: '', message: '' })
-        setTimeout(() => setSubmitStatus(null), 3000)
+      if (response.ok && data.success) {
+        setSubmitStatus({
+          type: 'success',
+          message: 'Thanks for reaching out. Your message has been sent successfully.'
+        })
+        setFormData({ name: '', email: '', subject: '', message: '', website: '' })
       } else {
-        setSubmitStatus('error')
-        setTimeout(() => setSubmitStatus(null), 3000)
+        setSubmitStatus({
+          type: 'error',
+          message: data.error || 'The message could not be delivered right now. Please try again shortly.'
+        })
       }
     } catch (error) {
       console.error('Failed to send email:', error)
-      setSubmitStatus('error')
-      setTimeout(() => setSubmitStatus(null), 3000)
+      setSubmitStatus({
+        type: 'error',
+        message: 'The message could not be delivered right now. Please try again shortly.'
+      })
     } finally {
       setIsSubmitting(false)
     }
@@ -69,7 +113,7 @@ const Contact = () => {
       ),
       title: "Email",
       value: "katmoreyash2121@gmail.com",
-      // link: "mailto:katmoreyash2121@gmail.com"
+      link: "mailto:katmoreyash2121@gmail.com"
     },
     {
       icon: (
@@ -106,7 +150,7 @@ const Contact = () => {
     },
     {
       name: "LinkedIn",
-      url: "https://linkedin.com",
+      url: "https://www.linkedin.com/in/yash-katmore",
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -115,7 +159,7 @@ const Contact = () => {
     },
     {
       name: "Twitter",
-      url: "https://x.com/home",
+      url: "https://twitter.com/yashkatmore",
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
           <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
@@ -148,8 +192,8 @@ const Contact = () => {
               </h3>
               <p className="text-gray-600 leading-relaxed mb-8">
                 Don't like forms? Send me an email directly at{' '}
-                <a className="text-blue-600 hover:text-blue-700">
-                katmoreyash2121@gmail.com
+                <a href="mailto:katmoreyash2121@gmail.com" className="text-blue-600 hover:text-blue-700">
+                  katmoreyash2121@gmail.com
                 </a>
               </p>
             </div>
@@ -201,7 +245,7 @@ const Contact = () => {
           <div className="bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl p-8 shadow-sm">
             <h3 className="text-2xl font-bold text-gray-800 mb-6">Send me a message</h3>
             
-            <form ref={form} onSubmit={handleSubmit} className="space-y-6">
+            <form ref={form} onSubmit={handleSubmit} className="space-y-6" noValidate>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
@@ -268,6 +312,20 @@ const Contact = () => {
                 ></textarea>
               </div>
 
+              <div className="hidden" aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  tabIndex={-1}
+                  className="absolute -top-5000px"
+                />
+              </div>
+
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -276,14 +334,18 @@ const Contact = () => {
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
 
-              {submitStatus === 'success' && (
-                <div className="text-green-400 text-center py-2">
-                  Message sent successfully! I'll get back to you soon.
+              <p className="text-sm text-gray-500 text-center">
+                This form sends your message securely through the server and delivers it to my inbox.
+              </p>
+
+              {submitStatus?.type === 'success' && (
+                <div className="text-green-600 text-center py-2" role="status" aria-live="polite">
+                  {submitStatus.message}
                 </div>
               )}
-              {submitStatus === 'error' && (
-                <div className="text-red-400 text-center py-2">
-                  Failed to send message. Please try again later.
+              {submitStatus?.type === 'error' && (
+                <div className="text-red-600 text-center py-2" role="alert" aria-live="assertive">
+                  {submitStatus.message}
                 </div>
               )}
             </form>

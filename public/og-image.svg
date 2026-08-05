@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect x="80" y="80" width="1040" height="470" rx="40" fill="rgba(255,255,255,0.12)" />
+  <text x="120" y="220" font-family="Inter, Helvetica, Arial, sans-serif" font-size="64" fill="#ffffff" font-weight="700">Yash Katmore</text>
+  <text x="120" y="300" font-family="Inter, Helvetica, Arial, sans-serif" font-size="36" fill="#dbeafe">React Developer • UI/UX-minded Engineer</text>
+  <text x="120" y="360" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" fill="#dbeafe">Polished, accessible web experiences built with React, Tailwind, and strong product sense.</text>
+  <text x="120" y="520" font-family="Inter, Helvetica, Arial, sans-serif" font-size="26" fill="#bfdbfe">Portfolio</text>
+</svg>

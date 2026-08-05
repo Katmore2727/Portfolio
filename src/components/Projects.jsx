@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
-import WeatherDashboardDemo from './demos/WeatherDashboardDemo'
-import EcommerceDemo from './demos/EcommerceDemo'
-import TaskManagementDemo from './demos/TaskManagementDemo'
-import BlogDemo from './demos/BlogDemo'
-import ApiGatewayDemo from './demos/ApiGatewayDemo'
-import TicTacToeDemo from './demos/TicTacToeDemo'
+import React, { useState, Suspense, lazy } from 'react'
+
+const WeatherDashboardDemo = lazy(() => import('./demos/WeatherDashboardDemo'))
+const EcommerceDemo = lazy(() => import('./demos/EcommerceDemo'))
+const TaskManagementDemo = lazy(() => import('./demos/TaskManagementDemo'))
+const BlogDemo = lazy(() => import('./demos/BlogDemo'))
+const ApiGatewayDemo = lazy(() => import('./demos/ApiGatewayDemo'))
+const TicTacToeDemo = lazy(() => import('./demos/TicTacToeDemo'))
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState('all')
@@ -16,13 +17,13 @@ const Projects = () => {
     {
       id: 1,
       title: "E-Commerce Platform",
-      description: "A full-stack e-commerce platform with user authentication, product management, shopping cart, and payment integration.",
-      longDescription: "This e-commerce solution includes user registration and authentication, product catalog with search and filtering, shopping cart functionality, secure payment processing, order management, and an admin dashboard for inventory control. Built with React.js, Node.js, Express.js, MongoDB, and styled with Tailwind CSS.",
+      description: "A polished e-commerce experience with authentication, product browsing, cart flows, and checkout-focused UX design.",
+      longDescription: "This e-commerce solution combines product discovery, account handling, and streamlined checkout flows into a cohesive storefront experience. Built with React.js, Node.js, Express.js, MongoDB, and Tailwind CSS, it emphasizes usability and conversion-friendly interactions.",
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop",
       technologies: ["React.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "REST APIs", "Git/GitHub"],
       category: "fullstack",
-      liveUrl: "#",
-      githubUrl: "#",
+      liveUrl: null,
+      githubUrl: null,
       featured: true,
       features: ["User Authentication", "Product Management", "Shopping Cart", "Payment Integration", "Admin Dashboard", "Responsive Design"],
       demoContent: "ecommerce"
@@ -30,65 +31,65 @@ const Projects = () => {
     {
       id: 2,
       title: "Task Management App",
-      description: "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-      longDescription: "A modern task management application featuring real-time collaboration, drag-and-drop task organization, team workspaces, progress tracking, and deadline management. Built with React.js, Redux, Material-UI, and styled with Tailwind CSS.",
+      description: "A collaborative planning app with task boards, drag-and-drop interactions, and workflow clarity for distributed teams.",
+      longDescription: "This task management experience is designed to make work visible and organized. It combines structured task boards, intuitive interactions, and a calm UI to help teams stay on top of progress and priorities.",
       image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&h=300&fit=crop",
       technologies: ["React.js", "Redux", "Material-UI", "Tailwind CSS", "REST APIs", "Git/GitHub"],
       category: "frontend",
-      liveUrl: "#",
-      githubUrl: "#",
+      liveUrl: null,
+      githubUrl: null,
       features: ["Real-time Updates", "Drag & Drop", "Team Collaboration", "Progress Tracking", "Task Assignment", "Priority Levels"],
       demoContent: "task-management"
     },
     {
       id: 3,
       title: "Weather Dashboard",
-      description: "A beautiful weather dashboard that displays current weather and 7-day forecast using OpenWeatherMap API.",
-      longDescription: "An interactive weather application that provides current weather conditions and a 7-day forecast. Features include temperature charts, humidity graphs, wind speed indicators, and a beautiful, responsive design. Built with React.js, JavaScript, and styled with Tailwind CSS.",
+      description: "A responsive weather dashboard that surfaces current conditions and forecasting data through a clean, data-first interface.",
+      longDescription: "This weather dashboard blends API-driven data with clear visual storytelling to make climate information easy to scan and understand. The experience focuses on responsive layout, readable content hierarchy, and practical usability.",
       image: "https://images.unsplash.com/photo-1592210454359-9043f067919b?w=500&h=300&fit=crop",
       technologies: ["React.js", "JavaScript", "Tailwind CSS", "REST APIs", "Git/GitHub"],
       category: "frontend",
-      liveUrl: "#",
-      githubUrl: "#",
+      liveUrl: null,
+      githubUrl: null,
       features: ["Current Weather", "7-day Forecast", "Responsive Design", "Location Search"],
       demoContent: "weather"
     },
     {
       id: 4,
       title: "Blog Platform",
-      description: "A modern blog platform with markdown support, user authentication, and admin dashboard for content management.",
-      longDescription: "A full-featured blogging platform with markdown editor, user authentication, comment system, and admin dashboard. Built with React.js, Node.js, Express.js, MongoDB, and styled with Tailwind CSS.",
+      description: "A content-focused blog experience with editorial tools, authentication, and a streamlined publishing workflow.",
+      longDescription: "This platform emphasizes clarity, content management, and user experience for writers and readers alike. It brings together publishing workflows and a polished frontend experience in a single product story.",
       image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=500&h=300&fit=crop",
       technologies: ["React.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "Git/GitHub"],
       category: "fullstack",
-      liveUrl: "#",
-      githubUrl: "#",
+      liveUrl: null,
+      githubUrl: null,
       features: ["Markdown Editor", "User Authentication", "Comment System", "Admin Dashboard", "Responsive Design"],
       demoContent: "blog"
     },
     {
       id: 5,
       title: "Tic-Tac-Toe",
-      description: "A classic Tic-Tac-Toe game built using JavaScript, React.JS, HTML, and CSS. Play against a friend in a simple, interactive UI.",
-      longDescription: "This Tic-Tac-Toe game features a clean and responsive design, allowing two players to compete in turns. The game logic is implemented in JavaScript, with a user-friendly interface created using HTML and styled with CSS. It includes win detection, draw handling, and a reset option for replaying.",
+      description: "A lightweight game experience with responsive controls, clear state handling, and straightforward interactive design.",
+      longDescription: "This Tic-Tac-Toe demo highlights simple game logic and a polished interface for quick, engaging interaction. It demonstrates clean component structure and user-friendly state management in a compact build.",
       image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=500&h=300&fit=crop",
       technologies: ["JavaScript", "React.JS", "HTML", "CSS"],
       category: "frontend",
-      liveUrl: "#",
-      githubUrl: "#",
+      liveUrl: null,
+      githubUrl: null,
       features: ["Two Player Mode", "Win Detection", "Draw Handling", "Responsive Design", "Reset Option"],
       demoContent: "tic-tac-toe"
     },
     {
       id: 6,
       title: "API Gateway",
-      description: "A microservices API gateway with rate limiting, authentication, and request routing for multiple backend services.",
-      longDescription: "A robust API gateway designed for microservices architecture. Includes features like rate limiting, authentication middleware, request routing, load balancing, and comprehensive logging. Built with Node.js, Express.js, and styled with Tailwind CSS.",
+      description: "A backend-facing API gateway concept with routing, throttling, and observability patterns for service-oriented systems.",
+      longDescription: "This project explores the architecture behind reliable API traffic management with request handling, authentication, and monitoring principles in mind. It reflects a systems-minded approach to building backend infrastructure.",
       image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500&h=300&fit=crop",
       technologies: ["Node.js", "Express.js", "REST APIs", "Git/GitHub"],
       category: "backend",
-      liveUrl: "#",
-      githubUrl: "#",
+      liveUrl: null,
+      githubUrl: null,
       features: ["Rate Limiting", "Authentication", "Request Routing", "Load Balancing", "Comprehensive Logging"],
       demoContent: "api-gateway"
     }
@@ -180,6 +181,7 @@ const Projects = () => {
                 <img
                   src={project.image}
                   alt={project.title}
+                  loading="lazy"
                   className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                 />
                 {project.featured && (
@@ -187,6 +189,11 @@ const Projects = () => {
                     Featured
                   </div>
                 )}
+                <div className="absolute top-4 right-4">
+                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${project.liveUrl ? 'bg-green-100 text-green-800' : project.githubUrl ? 'bg-blue-100 text-blue-800' : 'bg-yellow-100 text-yellow-800'}`}>
+                    {project.liveUrl ? 'Live Project' : project.githubUrl ? 'Code Only' : 'Demo Only'}
+                  </span>
+                </div>
                 {/* Click indicator */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white text-lg font-semibold">
@@ -226,18 +233,8 @@ const Projects = () => {
                     }}
                     className="flex-1 cursor-pointer bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-center py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105"
                   >
-                    Live Demo
+                    View Details
                   </button>
-                  {/* <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      // For now, show a message that GitHub repo will be available soon
-                      alert('GitHub repository will be available soon! This project is currently in development.');
-                    }}
-                    className="flex-1 border border-gray-300 text-gray-600 hover:border-blue-600 hover:text-blue-600 text-center py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300"
-                  >
-                    Code
-                  </button> */}
                 </div>
               </div>
             </div>
@@ -298,7 +295,7 @@ const Projects = () => {
                       : 'text-gray-500 hover:text-gray-700'
                   }`}
                 >
-                  Live Demo
+                  Demo Preview
                 </button>
                 <button
                   onClick={() => setActiveTab('info')}
@@ -315,7 +312,9 @@ const Projects = () => {
               {/* Tab Content */}
               {activeTab === 'demo' ? (
                 <div className="min-h-[500px]">
-                  {renderDemoContent(selectedProject)}
+                  <Suspense fallback={<div className="flex h-full items-center justify-center text-gray-500">Loading preview...</div>}>
+                    {renderDemoContent(selectedProject)}
+                  </Suspense>
                 </div>
               ) : (
                 <div>
@@ -352,21 +351,39 @@ const Projects = () => {
                   </div>
 
                   {/* Project Links */}
-                  <div className="flex gap-4 pt-4 border-t border-gray-200">
-                    <button
-                      onClick={() => setActiveTab('demo')}
-                      className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-center py-3 px-6 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
-                    >
-                      Try Live Demo
-                    </button>
-                    <a
-                      href={selectedProject.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white text-center py-3 px-6 rounded-lg font-medium transition-all duration-300"
-                    >
-                      View Code
-                    </a>
+                  <div className="flex flex-col gap-4 pt-4 border-t border-gray-200 md:flex-row">
+                    {selectedProject.liveUrl ? (
+                      <a
+                        href={selectedProject.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-center py-3 px-6 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
+                      >
+                        Open Live Project
+                      </a>
+                    ) : (
+                      <button
+                        onClick={() => setActiveTab('demo')}
+                        className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-center py-3 px-6 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
+                      >
+                        Open Demo Preview
+                      </button>
+                    )}
+
+                    {selectedProject.githubUrl ? (
+                      <a
+                        href={selectedProject.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white text-center py-3 px-6 rounded-lg font-medium transition-all duration-300"
+                      >
+                        View Code
+                      </a>
+                    ) : (
+                      <div className="flex-1 rounded-lg border border-gray-200 bg-gray-50 p-4 text-center text-sm text-gray-500">
+                        Code link coming soon
+                      </div>
+                    )}
                   </div>
                 </div>
               )}

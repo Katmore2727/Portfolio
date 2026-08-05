@@ -51,21 +51,6 @@ const TaskManagementDemo = () => {
     }
   }
 
-  const moveTask = (taskId, fromBoardId, toBoardId) => {
-    const task = boards.find(board => board.id === fromBoardId)?.tasks.find(t => t.id === taskId)
-    if (task) {
-      setBoards(boards.map(board => {
-        if (board.id === fromBoardId) {
-          return { ...board, tasks: board.tasks.filter(t => t.id !== taskId) }
-        }
-        if (board.id === toBoardId) {
-          return { ...board, tasks: [...board.tasks, task] }
-        }
-        return board
-      }))
-    }
-  }
-
   const deleteTask = (taskId, boardId) => {
     setBoards(boards.map(board => 
       board.id === boardId 

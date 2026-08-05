@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Modern Portfolio Website
 
 A beautiful, responsive portfolio website built with React.js and Tailwind CSS. Features a modern design with smooth animations, interactive components, and a professional layout.
@@ -33,6 +32,7 @@ cd Portfolio-Project
 ```bash
 npm install
 ```
+```
 
 3. Start the development server:
 ```bash
@@ -48,7 +48,7 @@ npm run dev
 Update the following files to customize your personal information:
 
 #### 1. Hero Section (`src/components/Hero.jsx`)
-- Change "Your Name" to your actual name
+- Change your displayed name to your actual name
 - Update the roles array with your professional titles
 - Modify the description text
 - Update social media links
@@ -156,6 +156,4 @@ If you have any questions or need help customizing the portfolio, please open an
 ---
 
 **Happy Coding! 🎉**
-=======
-# Portfolio
->>>>>>> 2186a3e0f97d1dc99c8d535a4c3bb0d3c74a14ec
+

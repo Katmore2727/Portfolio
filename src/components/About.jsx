@@ -26,7 +26,7 @@ const About = () => {
             <div className="relative">
               <div className="w-80 h-80 mx-auto relative flex items-center justify-center">
                 <div className="absolute inset-0 rounded-full blur-xl opacity-30"></div>
-                <img src={userImg} alt="Profile" className="relative w-48 h-48 rounded-full object-cover border-4 border-blue-200 shadow-lg z-10" />
+                <img src={userImg} alt="Profile" loading="lazy" className="relative w-48 h-48 rounded-full object-cover border-4 border-blue-200 shadow-lg z-10" />
               </div>
             </div>
 
@@ -44,27 +44,19 @@ const About = () => {
           {/* Right Column - Content */}
           <div className="space-y-6">
             <h3 className="text-2xl font-bold text-gray-800 mb-4">
-              A passionate developer who loves creating amazing digital experiences
+              Building thoughtful digital products with clean engineering and strong product intuition
             </h3>
             
             <p className="text-gray-600 leading-relaxed">
-              I'm a dedicated full-stack developer with a passion for creating beautiful, 
-              functional, and user-friendly web applications. With over 3 years of experience 
-              in web development, I've worked on various projects ranging from simple landing 
-              pages to complex web applications.
+              I’m a full-stack software engineer with a strong design mindset, delivering products that feel polished and function reliably. I build interfaces grounded in clear UX, accessible interactions, and maintainable React architecture.
             </p>
 
             <p className="text-gray-600 leading-relaxed">
-              My journey in web development started with a curiosity about how websites work, 
-              which quickly evolved into a passion for creating digital solutions that make 
-              a difference. I believe in writing clean, maintainable code and creating 
-              intuitive user experiences.
+              My work is focused on fast-loading experiences, intuitive navigation, and a thoughtful product-first approach. I value clear communication, smooth developer workflows, and delivering solutions that users and stakeholders appreciate.
             </p>
 
             <p className="text-gray-600 leading-relaxed">
-              When I'm not coding, you can find me exploring new technologies, contributing 
-              to open-source projects, or sharing my knowledge with the developer community. 
-              I'm always eager to learn new things and take on challenging projects.
+              I enjoy collaborating on projects that bridge frontend craftsmanship with backend reliability. When I work on a feature, I prioritize practical delivery, quality engineering, and a great end-user experience.
             </p>
 
             {/* Skills Preview */}

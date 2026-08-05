@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react'
 
 const Hero = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0)
-  const [isTyping, setIsTyping] = useState(true)
 
   const roles = [
-    "Full Stack Developer",
-    "React Developer", 
+    "Full-Stack Developer",
+    "React Engineer",
     "UI/UX Designer",
-    "Problem Solver"
+    "Product-minded Builder"
   ]
 
   useEffect(() => {
@@ -16,7 +15,7 @@ const Hero = () => {
       setCurrentTextIndex((prev) => (prev + 1) % roles.length)
     }, 3000)
     return () => clearInterval(interval)
-  }, [])
+  }, [roles.length])
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId)
@@ -27,12 +26,7 @@ const Hero = () => {
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Background Animation */}
-      {/* <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-400/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-300/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/30 rounded-full blur-3xl animate-pulse delay-500"></div>
-      </div> */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.16),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.14),transparent_26%)]"></div>
 
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
         {/* Greeting */}
@@ -61,8 +55,7 @@ const Hero = () => {
 
         {/* Description */}
         <p className="text-gray-600 text-lg sm:text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
-          Passionate about creating beautiful, functional, and user-friendly web applications. 
-          I love turning complex problems into simple, elegant solutions.
+          I build polished, accessible web experiences that blend thoughtful design with reliable engineering. From product ideas to production-ready interfaces, I focus on clarity, performance, and measurable impact.
         </p>
 
         {/* CTA Buttons */}
@@ -84,7 +77,7 @@ const Hero = () => {
         {/* Social Links */}
         <div className="mt-12 flex justify-center space-x-6">
           <a
-            href="https://github.com"
+            href="https://github.com/Katmore2727"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-500 hover:text-blue-600 transition-colors duration-200"
@@ -94,7 +87,7 @@ const Hero = () => {
             </svg>
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/yash-katmore"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-500 hover:text-blue-600 transition-colors duration-200"
@@ -104,7 +97,7 @@ const Hero = () => {
             </svg>
           </a>
           <a
-            href="https://twitter.com"
+            href="https://twitter.com/yashkatmore"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-500 hover:text-blue-600 transition-colors duration-200"

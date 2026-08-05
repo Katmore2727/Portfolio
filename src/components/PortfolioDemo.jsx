@@ -118,9 +118,9 @@ const PortfolioDemo = () => {
               <div>
                 <h4 className="font-semibold mb-3">Contact Information</h4>
                 <div className="space-y-2 text-sm">
-                  <p>📧 email@example.com</p>
-                  <p>📱 +1 (555) 123-4567</p>
-                  <p>📍 New York, NY</p>
+                  <p>📧 <a href="mailto:katmoreyash2121@gmail.com" className="text-blue-600 hover:text-blue-800 transition-colors">katmoreyash2121@gmail.com</a></p>
+                  <p>📱 Contact via form or email</p>
+                  <p>📍 Pune, India</p>
                 </div>
               </div>
               <div>
