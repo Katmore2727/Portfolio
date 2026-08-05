@@ -1,8 +1,19 @@
+import * as serverModule from '../../server.js'
 import serverless from 'serverless-http'
-import app from '../../server.js'
 
-const proxy = serverless(app)
 const NETLIFY_FUNCTION_PREFIX = '/.netlify/functions/api'
+
+let expressApp = serverModule.default || serverModule
+while (
+  expressApp &&
+  typeof expressApp !== 'function' &&
+  typeof expressApp === 'object' &&
+  'default' in expressApp
+) {
+  expressApp = expressApp.default
+}
+
+const proxy = serverless(expressApp)
 
 export const handler = async (event, context) => {
   if (event.path && event.path.startsWith(NETLIFY_FUNCTION_PREFIX)) {
